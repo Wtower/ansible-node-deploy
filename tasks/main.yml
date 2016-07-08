@@ -18,6 +18,7 @@
   file: path={{ conf.host_path }}/{{ project }} owner="{{ ansible_user_id }}" state=directory mode=0750
   become: true
 
+# Does not seem to work
 #- name: Enable Apache proxy
 #  apache2_module: name=proxy_http
 #  become: true
@@ -44,18 +45,19 @@
 - name: Set node path
   set_fact: node_path="/home/{{ ansible_user_id }}/.nvm/{{ conf.node_version | default('v4.4.7') }}/bin"
 
-- name: Upgrade npm
-  npm:
-    name: npm
-    global: yes
-    state: latest
-    executable: "{{ node_path }}/npm"
-
-- name: Install npm requirements
-  npm:
-    path: "{{ conf.host_path }}/{{ project }}"
-    state: latest
-    executable: "{{ node_path }}/npm"
+# Issue #1
+#- name: Upgrade npm
+#  npm:
+#    name: npm
+#    global: yes
+#    state: latest
+#    executable: "{{ node_path }}/npm"
+#
+#- name: Install npm requirements
+#  npm:
+#    path: "{{ conf.host_path }}/{{ project }}"
+#    state: latest
+#    executable: "{{ node_path }}/npm"
 
 - name: Set node start script suffix
   set_fact: start_script_suffix=" {{ conf.host_path }}/{{ project }}"
