@@ -1,0 +1,25 @@
+---
+# Deploy Node
+#
+# Extra variables
+# - host
+# - project
+
+- hosts: "{{ host }}"
+
+  gather_facts: no
+
+  vars_files:
+    - ../conf/node_apps.yml
+
+  vars:
+    conf: "{{ node_apps[project] }}"
+
+  pre_tasks:
+    - name: Checking if disabled
+      fail: msg="App [{{ project }}] is disabled."
+      when: node_apps[project].disabled is defined
+
+  roles:
+    - Wtower.nvm
+    - Wtower.node-deploy

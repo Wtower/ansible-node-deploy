@@ -1,0 +1,8 @@
+---
+node_apps:
+  myproject:
+    domain_name: myproject.com
+    dev_path: ~/workspace/node/project
+    host_path: /var/www/vhosts/mysite.com/myproject.com
+    node_port: 3000
+    start_script: npm start

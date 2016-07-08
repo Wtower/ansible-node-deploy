@@ -1,0 +1,18 @@
+description "node.js server"
+author      "kvz - http://kevin.vanzonneveld.net"
+# {{ ansible_managed }}
+
+start on started mountall
+stop on shutdown
+
+respawn
+respawn limit 99 5
+
+script
+    export HOME="/home/{{ ansible_user_id }}"
+    exec {{ node_path }}/{{ start_script }}{{ start_script_suffix }} >> /var/log/node.{{ project }}.log 2>&1
+end script
+
+post-start script
+
+end script

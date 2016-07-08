@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+
+<Location />
+    ProxyPass http://127.0.0.1:{{ conf.node_port | default('3000') }}/
+    ProxyPassReverse http://127.0.0.1:{{ conf.node_port | default('3000') }}/
+</Location>

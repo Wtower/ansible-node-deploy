@@ -1,0 +1,68 @@
+---
+# Deploys a Node,js app to Plesk
+
+- name: Check that local project path in configuration is valid and has package.json
+  local_action: stat path={{ conf.dev_path }}/package.json
+  register: check_dev_path
+  failed_when: check_dev_path.stat.exists == False
+
+- name: Check if gulp file exists
+  local_action: stat path={{ conf.dev_path }}/gulpfile.js
+  register: check_gulp_file
+
+- name: Execute gulp
+  local_action: command gulp build --production chdir={{ conf.dev_path }}
+  when: check_gulp_file.stat.exists == True
+
+- name: Create directory
+  file: path={{ conf.host_path }}/{{ project }} owner="{{ ansible_user_id }}" state=directory mode=0750
+  become: true
+
+#- name: Enable Apache proxy
+#  apache2_module: name=proxy_http
+#  become: true
+#  when: conf.domain_name is defined
+#  notify:
+#    - Restart Apache
+
+- name: Configure Apache
+  template: src="vhost.conf.j2" dest="/var/www/vhosts/{{ conf.domain_name }}/conf/vhost.conf" backup=yes
+  become: true
+  when: conf.domain_name is defined
+  notify:
+    - Reconfigure Plesk domain
+    - Restart Apache
+
+- name: Sync files
+  synchronize:
+    src: "{{ conf.dev_path }}/"
+    dest: "{{ conf.host_path }}/{{ project }}"
+    delete: yes
+    rsync_opts:
+      - "--exclude=.*"
+
+- name: Set node path
+  set_fact: node_path="/home/{{ ansible_user_id }}/.nvm/{{ conf.node_version | default('v4.4.7') }}/bin"
+
+- name: Upgrade npm
+  npm:
+    name: npm
+    global: yes
+    state: latest
+    executable: "{{ node_path }}/npm"
+
+- name: Install npm requirements
+  npm:
+    path: "{{ conf.host_path }}/{{ project }}"
+    state: latest
+    executable: "{{ node_path }}/npm"
+
+- name: Set node start script suffix
+  set_fact: start_script_suffix=" {{ conf.host_path }}/{{ project }}"
+  when: start_script == 'npm start'
+
+- name: Configure service
+  template: src="node.conf.j2" dest="/etc/init/node-{{ project }}.conf" backup=yes
+  become: true
+  notify:
+    - Restart Node Service
