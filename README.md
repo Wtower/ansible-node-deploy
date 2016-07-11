@@ -33,7 +33,7 @@ Optional Configuration variables
 
 - `conf.node_version`: The node.js version of the app, default: `4.4.7`.
 - `conf.node_port`: The node.js server port, default: `3000`.
-- `conf.start_script`: The node.js start script, default: `npm start`.
+- `conf.start_script`: The node.js start script, default: `bin/www`.
 
 Other default variables
 -----------------------
@@ -68,7 +68,7 @@ Task description
 
    Creates a `project` directory in target to deploy files.
 
-5. Enable Apache proxy
+5. (Enable Apache proxy) (removed)
 
    Makes sure that `mod_proxy` is enabled.
    If the configuration changes, causes Apache to restart in the end (notifies handler).
@@ -89,18 +89,13 @@ Task description
 
     Auxiliary task which sets a variable with the nvm node path executables.
 
-9. Upgrade npm
+9. (Upgrade npm) (removed)
 
    Upgrades global npm.
 
-10. Install npm requirements
+10. (Install npm requirements) (removed)
 
     Run `npm install`.
-
-11. Set node start script suffix
-
-    Auxiliary task which sets a variable with the proper path if `npm start` is the startup script.
-    If a `node script.js` is provided then it is omitted.
 
 12. Configure service
 

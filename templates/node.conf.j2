@@ -10,7 +10,8 @@ respawn limit 99 5
 
 script
     export HOME="/home/{{ ansible_user_id }}"
-    exec {{ node_path }}/{{ conf.start_script }}{{ start_script_suffix | default('') }} >> /var/log/node.{{ project }}.log 2>&1
+    export PORT="{{ conf.node_port }}"
+    exec {{ node_path }}/node {{ conf.host_path }}/{{ project }}/{{ conf.start_script | default('bin/www') }} >> /var/log/node.{{ project }}.log 2>&1
 end script
 
 post-start script
