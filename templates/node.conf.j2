@@ -11,6 +11,7 @@ respawn limit 99 5
 script
     export HOME="/home/{{ ansible_user_id }}"
     export PORT="{{ conf.node_port }}"
+    export NODE_ENV={{ conf.node_env | default('production') }}
     exec /home/{{ ansible_user_id }}/.nvm/{{ conf.node_version | default('v4.4.7') }}/bin/node {{ conf.host_path }}/{{ project }}/{{ conf.start_script | default('bin/www') }} >> /var/log/node.{{ project }}.log 2>&1
 end script
 

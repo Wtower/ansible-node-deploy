@@ -34,6 +34,7 @@ Optional Configuration variables
 - `conf.node_version`: The node.js version of the app, default: `4.4.7`.
 - `conf.node_port`: The node.js server port, default: `3000`.
 - `conf.start_script`: The node.js start script, default: `bin/www`.
+- `conf.node_env`: The node.js environment, default: `production`.
 
 Other default variables
 -----------------------
