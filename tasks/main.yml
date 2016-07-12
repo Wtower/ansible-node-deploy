@@ -42,11 +42,10 @@
     rsync_opts:
       - "--exclude=.*"
 
-- name: Set node path
-  set_fact: node_path="/home/{{ ansible_user_id }}/.nvm/{{ conf.node_version | default('v4.4.7') }}/bin"
-
 - name: Configure service
   template: src="node.conf.j2" dest="/etc/init/node-{{ project }}.conf" backup=yes
   become: true
-  notify:
-    - Restart Node Service
+
+- name: Restart Node Service
+  service: name=node-{{ project }} state=restarted
+  become: true

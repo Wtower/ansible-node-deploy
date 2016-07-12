@@ -6,7 +6,3 @@
 - name: Restart Apache
   service: name=apache2 state=restarted
   become: true
-
-- name: Restart Node Service
-  service: name=node-{{ project }} state=restarted
-  become: true
