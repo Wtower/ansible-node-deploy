@@ -18,6 +18,7 @@ Optional variables
 (passed as extra variables):
 
 - `exclude`: Additional pattern to exclude from sync, eg. `uploads/`.
+- `loaddata`: Specify mongo dump directory in host directory to perform a mongo restore, eg. `dump`.
 
 Required Configuration variables 
 --------------------------------
@@ -78,35 +79,43 @@ Task description
    Makes sure that `mod_proxy` is enabled.
    If the configuration changes, causes Apache to restart in the end (notifies handler).
 
-6. Sync files
+6. Build sync options
+
+   Append any additional excluded files in the rsync options.
+
+7. Sync files
 
    Syncs files to target directory.
 
    :warning: Make sure that you have synced back any user uploaded files with manual `rsync`. 
 
-7. Configure Apache
+8. Load data
+
+   Perform a mongo restore from the optionall specified additional variable `loaddata`.
+
+9. Configure Apache
 
    Configure Apache to proxy to server using the provided template file.
    If the configuration changes, causes Plesk to reconfigure the domain in the end (notifies handler).
    If the configuration changes, causes Apache to restart in the end (notifies handler).
 
-8. Configure Apache SSL
+10. Configure Apache SSL
 
    Same as above, for SSL vhost.
 
-9. Set node path
+11. Set node path
 
-    Auxiliary task which sets a variable with the nvm node path executables.
+   Auxiliary task which sets a variable with the nvm node path executables.
 
-10. (Upgrade npm) (removed)
+13. (Upgrade npm) (removed)
 
    Upgrades global npm.
 
-11. (Install npm requirements) (removed)
+14. (Install npm requirements) (removed)
 
-    Run `npm install`.
+   Run `npm install`.
 
-12. Configure service
+15. Configure service
 
    Configure an init service to execute node.js using the provided template file.
    If the configuration changes, causes service to restart (notifies handler).
