@@ -6,3 +6,4 @@ node_apps:
     host_path: /var/www/vhosts/mysite.com/myproject.com
     node_port: 3000
     start_script: bin/www
+    https_only: false

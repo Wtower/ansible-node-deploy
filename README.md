@@ -35,6 +35,8 @@ Optional Configuration variables
 - `conf.node_port`: The node.js server port, default: `3000`.
 - `conf.start_script`: The node.js start script, default: `bin/www`.
 - `conf.node_env`: The node.js environment, default: `production`.
+- `conf.https_only`: If true then configure Apache 
+  [only for SSL](https://github.com/Wtower/ansible-node-deploy/issues/6). Default: `false`.
 
 Other default variables
 -----------------------
