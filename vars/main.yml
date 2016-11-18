@@ -1,0 +1,4 @@
+---
+# Additional rsync options
+sync_opts:
+  - "--exclude=.*"

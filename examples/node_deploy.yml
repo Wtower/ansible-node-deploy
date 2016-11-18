@@ -4,6 +4,7 @@
 # Extra variables
 # - host
 # - project
+# - exclude
 
 - hosts: "{{ host }}"
 

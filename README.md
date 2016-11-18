@@ -17,6 +17,7 @@ Optional variables
 
 (passed as extra variables):
 
+- `exclude`: Additional pattern to exclude from sync, eg. `uploads/`.
 
 Required Configuration variables 
 --------------------------------
@@ -42,6 +43,7 @@ Other default variables
 -----------------------
 
 - `ansible_user_id`: The user id with access to mysql and mysql database.
+- `sync_opts`: Additional options for rsync. Default: exclude `.*`. 
 
 Playbook examples
 -----------------
@@ -76,27 +78,31 @@ Task description
    Makes sure that `mod_proxy` is enabled.
    If the configuration changes, causes Apache to restart in the end (notifies handler).
 
-6. Configure Apache
-
-   Configure Apache to proxy to server using the provided template file.
-   If the configuration changes, causes Plesk to reconfigure the domain in the end (notifies handler).
-   If the configuration changes, causes Apache to restart in the end (notifies handler).
-
-7. Sync files
+6. Sync files
 
    Syncs files to target directory.
 
    :warning: Make sure that you have synced back any user uploaded files with manual `rsync`. 
 
-8. Set node path
+7. Configure Apache
+
+   Configure Apache to proxy to server using the provided template file.
+   If the configuration changes, causes Plesk to reconfigure the domain in the end (notifies handler).
+   If the configuration changes, causes Apache to restart in the end (notifies handler).
+
+8. Configure Apache SSL
+
+   Same as above, for SSL vhost.
+
+9. Set node path
 
     Auxiliary task which sets a variable with the nvm node path executables.
 
-9. (Upgrade npm) (removed)
+10. (Upgrade npm) (removed)
 
    Upgrades global npm.
 
-10. (Install npm requirements) (removed)
+11. (Install npm requirements) (removed)
 
     Run `npm install`.
 
