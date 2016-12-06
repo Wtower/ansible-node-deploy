@@ -29,6 +29,7 @@
     src: "{{ conf.dev_path }}/"
     dest: "{{ conf.host_path }}/{{ project }}"
     delete: yes
+    copy_links: yes
     rsync_opts: "{{ sync_opts + sync_opts_user|default([]) }}"
 
 - name: Load data
