@@ -4,6 +4,7 @@ node_apps:
     domain_name: myproject.com
     dev_path: ~/workspace/node/project
     host_path: /var/www/vhosts/mysite.com/myproject.com
+    vhost_conf_path: /var/www/vhosts/system/mysite.com/conf
     node_port: 3000
     start_script: bin/www
     https_only: false

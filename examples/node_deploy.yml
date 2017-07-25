@@ -12,6 +12,7 @@
 
   vars_files:
     - ../conf/node_apps.yml
+    - "{{ secret_file|default('secret') }}"
 
   vars:
     conf: "{{ node_apps[project] }}"
