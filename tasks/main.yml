@@ -45,7 +45,7 @@
     - Restart Apache
 
 - name: Configure Apache SSL
-  template: src="vhost.conf.j2" dest="{{ conf.vhost_conf_path }}/vhost.conf" backup=yes
+  template: src="vhost.conf.j2" dest="{{ conf.vhost_conf_path }}/vhost_ssl.conf" backup=yes
   become: true
   when: conf.domain_name is defined
   notify:
@@ -55,7 +55,9 @@
 - name: Configure service
   template: src="node.conf.j2" dest="/etc/init/node-{{ project }}.conf" backup=yes
   become: true
+  when: conf.domain_name is defined
 
 - name: Restart Node Service
   service: name=node-{{ project }} state=restarted
   become: true
+  when: conf.domain_name is defined

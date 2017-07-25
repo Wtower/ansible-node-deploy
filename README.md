@@ -26,10 +26,8 @@ Required Configuration variables
 (better to keep in configuration file as shown in examples):
 
 - `conf`: A dictionary to help organize variables, containing:
-- `conf.domain_name`: Domain name to be used in Apache conf. Omit to skip configure Apache in Plesk.
 - `conf.dev_path`: The local path of the project, eg ~/workspace/python/myproject.
 - `conf.host_path`: The remote path, where the wsgi index script lies, eg /var/www/vhosts/subscription/domain.
-- `conf.vhost_conf_path`: The remote path, where the apache configuration override (`vhost.conf`) is located.
 
 Optional Configuration variables
 --------------------------------
@@ -40,6 +38,9 @@ Optional Configuration variables
 - `conf.node_env`: The node.js environment, default: `production`.
 - `conf.https_only`: If true then configure Apache 
   [only for SSL](https://github.com/Wtower/ansible-node-deploy/issues/6). Default: `false`.
+- `conf.domain_name`: Domain name to be used in Apache conf. Omit to skip configure Apache in Plesk 
+  and register system service.
+- `conf.vhost_conf_path`: The remote path, where the apache configuration override (`vhost.conf`) is located.
 
 Other default variables
 -----------------------
